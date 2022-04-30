@@ -4,7 +4,7 @@ WORKDIR /app
 # RUN apt-get update -y
 # RUN apt-get install mc -y
 # RUN yum install iputils
-RUN apt clean all -y
+# RUN apt clean all -y
 COPY . .
 
 ENV PORT 2222
