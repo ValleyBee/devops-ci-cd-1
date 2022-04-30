@@ -1,0 +1,28 @@
+FROM centos:stream8
+MAINTAINER Valentyn 'valley@mail.ru'
+RUN yum update -y
+
+RUN dnf -y module install nginx  && \ 
+    dnf clean all 
+
+#RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+#RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+
+#ADD default /etc/nginx/sites-available/default
+EXPOSE 80
+STOPSIGNAL SIGQUIT
+CMD ["nginx","-g","daemon off;"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+

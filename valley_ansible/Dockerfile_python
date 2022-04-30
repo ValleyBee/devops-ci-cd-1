@@ -1,0 +1,23 @@
+FROM centos:stream8
+MAINTAINER Valentyn 'valley@mail.ru'
+RUN yum update -y
+RUN dnf -y module install python39 && \
+    dnf clean all
+#RUN python39 --version 
+#RUN yum groupinstall "Development Tools" -y
+# RUN dnf clean all
+
+RUN yum install openssl-devel libffi-devel bzip2-devel -y && \
+    dnf clean all
+#RUN python3.9 -m pip install pip --upgrade
+RUN yum install python39-pip && \
+    dnf clean all
+RUN yum install mc -y
+RUN yum install nano -y
+RUN dnf clean all
+
+COPY . /ansible
+WORKDIR /ansible
+RUN pip3.9 install -r req_new.txt
+RUN dnf clean all
+

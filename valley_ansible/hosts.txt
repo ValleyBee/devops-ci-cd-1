@@ -1,0 +1,38 @@
+# This is the default ansible 'hosts' file.
+#
+# It should live in /etc/ansible/hosts
+#
+#   - Comments begin with the '#' character
+#   - Blank lines are ignored
+#   - Groups of hosts are delimited by [header] elements
+#   - You can enter hostnames or ip addresses
+#   - A hostname/ip can be a member of multiple groups
+
+# Ex 1: Ungrouped hosts, specify before any group headers.
+[local_vm]
+Centos8-01 ansible_host=192.168.100.4 ansible_connection=ssh
+Centos8-02 ansible_host=192.168.100.5 
+Centos8-03 ansible_host=192.168.100.6
+
+[myvm]
+Myvm ansible_host=localhost
+
+
+[local_vm:vars]
+ansible_connection=ssh
+ansible_user=admin
+ansible_ssh_pass=admin
+
+
+[google_vps]
+vps-01 ansible_host=34.1.1.1 
+
+[google_vps:vars]
+ansible_user=admin
+ansible_pass=admin
+ansible_ssh_provate_key_files=/home/admin/local_key
+
+
+[centos_all:children]
+local_vm
+
