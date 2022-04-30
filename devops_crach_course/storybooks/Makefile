@@ -2,7 +2,7 @@ PROJECT_ID=devops-directive-storybooks
 ZONE=us-central1-a
 
 run-local:
-	docker-compose up 
+	podman-compose up 
 
 ###
 
