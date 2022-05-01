@@ -1,0 +1,13 @@
+---
+- name: testing ping
+  hosts: all
+  gather_facts: false
+  become: true
+  vars:
+    num: 1
+  tasks:
+  - shell: yum list installed | grep xxx | wc -l
+    register: result
+  - debug:
+       msg: '{{num +1}}'
+ ...

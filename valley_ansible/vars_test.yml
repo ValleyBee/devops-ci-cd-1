@@ -1,0 +1,58 @@
+---
+- name: my testing of varables
+  hosts: all
+  become: true
+  gather_facts: no
+
+  vars:
+    message1: privet2
+    message2: World
+    secret: KJGHKHJHKKJHKJHKKJ
+    xx: ash
+    flex_var1: "flex_test1"
+    flex_var2: "flex_test2"
+  tasks:
+  - include_vars: vault.yml
+  - name: print secret var
+    debug:
+      msg: "{{item.my_user}}"
+    loop: "{{users_name}}"
+
+
+
+  - name: get date and timea nsible server 
+    run_once: true
+    local_action:
+       set_fact
+         - get_dayofweek="{{lookup('pipe','date +%A')}}"
+
+  
+  - name: set fact if else
+    set_fact:
+      flex_var: "{{ flex_var1 if ( get_dayofweek == 'Tuesday') else flex_var2 }}"
+#  - name: congatination
+#   debug:
+#    set_fact: all_passwords={{lookup('vars', ('user_pass').admin, 'item')}}
+# default='nothing')
+#    register: result_vars
+#    loop: "{{users_name2}}"
+#     - one
+#     - two
+#     - three
+  
+
+  
+  - name: output vars
+    debug: msg=" show var flex_var {{flex_var}}" 
+       
+ #      - " the password is {{ result_vars | password_hash('sha512') }}"
+ #   loop: "{{users_name}}"
+  
+  - set_fact: full_message='{{ message1}} {{message2}}'
+  - debug:
+      var: full_message
+  - name: test
+    ping:
+
+...
+

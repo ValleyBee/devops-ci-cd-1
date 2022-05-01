@@ -1,0 +1,54 @@
+---
+- name: configurating new serv
+  hosts: myvm
+  connection: local
+  gather_facts: false
+  #  vars_files: vault.yml
+
+  become: true
+  vars:
+    flag: false
+    my_user: vvbadmin
+  tasks:
+  - include_vars: vault.yml
+  
+  - name: remove user
+    user:
+     name: '{{my_user}}'
+     state: absent
+     remove: yes
+    # loop: '{{users_name}}'
+    register: result1
+    when: flag == true
+
+  - name: add user
+    user: 
+      name: vvbadmin
+      shell: /bin/bash
+#      password: "{{ 'admin' | password_hash('sha512') }}"
+      password: "{{'adminadmin' | password_hash('sha512') }}"
+      groups: sudo
+      create_home: yes
+      state: present 
+      comment: admin with root acceess
+    # loop: '{{users_name}}'
+    register: result2
+    when: flag == false
+
+  - name: Sudoers
+    lineinfile: "dest=/etc/sudoers
+      insertafter=EOF
+      line='{{ my_user }} ALL=(ALL) NOPASSWD: ALL'
+      regexp='^{{ my_user }} .*'
+      state=present"
+    # loop: '{{users_name}}'
+    when: flag == never
+    
+#  - user:
+#     name: admin
+#     groups: wheel
+#  - debug: 
+#     msg: "{{my_pass | password_hash('sha512') }}"
+  - debug:
+      msg: '{{result1}}'
+...

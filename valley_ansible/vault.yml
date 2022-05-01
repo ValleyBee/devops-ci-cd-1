@@ -1,0 +1,24 @@
+   users_name:
+#    - my_user: admin1
+    - my_user: ash
+#      use_sudo: yes
+#    - my_user: admin
+#      use_sudo: yes
+#    - my_user: dev
+
+   
+   users_name2:
+    - admin:
+       use_sudo: yes
+    - admin2
+    - admin3
+
+
+   user_pass:
+     admin: admin123456
+     ash: ash1234
+     dev: 1234
+#
+# - my_user1:
+#      name: admin
+ 

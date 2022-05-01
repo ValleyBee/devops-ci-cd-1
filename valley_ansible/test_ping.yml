@@ -1,0 +1,51 @@
+---
+- name: testing ping
+  hosts: all
+  gather_facts: no
+  vars:
+   e2: 6
+   ipd: "192.168.8."
+ 
+  tasks:
+   - shell: hostname -I | awk '{print $1}'
+     register: ipvar
+#   - shell:  awk -F '[="]*'  '$1=="VERSION_ID" { print $2 ;}' <  /etc/os-release
+#  - local_action:
+
+#   - name: f    
+#     local_action: find paths=/home/admin  patterns="*.txt"  recurse=no
+#     register: result_all
+
+#   - name: ff
+#     become: yes
+#     local_action: "shell {{item}}"
+#     loop:
+#       - rm -f /home/admin/te*.txt
+#       - for i in {1..100}; do echo -n "*"; done  > /home/admin/text.txt
+#       - echo -e "\n"{{inventory_hostname}} >> /home/admin/text.txt
+
+#     loop:
+#        - te*.txt
+#        - mem*.txt
+#    ignore_errors: true
+
+#     args:
+#       warn: false
+#     register: result_all       
+
+   - debug:
+  #    msg: "path is {{result_all}}"
+       var=ipvar
+   
+
+   - debug:
+       msg: "ip address  = {{ipvar.stdout}}"
+     when:  (ipd|string in ipvar.stdout)
+#    when: (result_all.stdout|int >= 1)
+
+    
+   - debug: var=e2
+
+
+ 
+...
