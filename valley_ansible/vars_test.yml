@@ -40,7 +40,6 @@
 #     - two
 #     - three
   
-
   
   - name: output vars
     debug: msg=" show var flex_var {{flex_var}}" 
